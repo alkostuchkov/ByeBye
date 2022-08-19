@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import byebye_ui
 from PyQt5.QtWidgets import QApplication, QDialog
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QEvent
 
 
 class ByeBye(QDialog):
@@ -45,31 +46,85 @@ class ByeBye(QDialog):
 
     @pyqtSlot()
     def cancel_clicked(self):
-        pass
+        """Cancel."""
+        self.close()
 
     @pyqtSlot()
     def logout_clicked(self):
-        pass
+        """Logout."""
+        print("Logout")
 
     @pyqtSlot()
     def reboot_clicked(self):
-        pass
+        """Reboot."""
+        os.system("systemctl reboot")
 
     @pyqtSlot()
     def shutdown_clicked(self):
-        pass
+        """Shutdown."""
+        os.system("systemctl shutdown")
 
     @pyqtSlot()
     def suspend_clicked(self):
-        pass
+        """Suspend."""
+        os.system("systemctl suspend")
 
     @pyqtSlot()
     def hibernate_clicked(self):
-        pass
+        """Hibernate."""
+        os.system("systemctl hibernate")
 
     @pyqtSlot()
     def lock_clicked(self):
-        pass
+        """Lock."""
+        # os.system("$HOME/.myScripts/system_exit/lock.sh")
+        os.system("slock")
+        self.close()
+
+    def eventFilter(self, obj, e):
+        """
+        My events for lblimg_... .
+        :param obj:
+        :param e:
+        :return QtWidgets.QWidget.eventFilter(self, obj, e):
+        """
+        if obj == self.ui.lblimg_cancel:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_cancel_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_logout:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_logout_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_reboot:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_reboot_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_shutdown:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_shutdown_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_suspend:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_suspend_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_hibernate:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_hibernate_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_lock:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_lock_clicked.emit()
+                    return True
+        # pass the event on to the parent class.
+        return QDialog.eventFilter(self, obj, e)
 
 
 if __name__ == "__main__":

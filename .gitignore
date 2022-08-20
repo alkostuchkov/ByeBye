@@ -3,11 +3,6 @@
 # Byte-compiled
 __pycache__
 
-# Distribution / packaging
-bin_WORKING+++
-bin
-.buildozer
-
 # Logs
 *.log
 
@@ -26,6 +21,8 @@ cache
 .cache
 temp
 .temp
-main.ini
+.qt_for_python/
 
-
+# PyInstaller
+dist/
+build/

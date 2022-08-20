@@ -58,13 +58,13 @@ class ByeBye(QDialog):
         """Logout."""
         id = subprocess.check_output(["pgrep", "qtile"]).decode(
             "utf-8").strip().splitlines()[0]
-        # os.system(f"kill -15 {id}")
-        print(f"kill -15 {id}")
+        os.system(f"kill -15 {id}")
 
     @pyqtSlot()
     def switchuser_clicked(self):
         """Switch User."""
         os.system("dm-tool switch-to-greeter")
+        self.close()
 
     @pyqtSlot()
     def reboot_clicked(self):

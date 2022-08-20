@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import subprocess
 import byebye_ui
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QEvent
@@ -9,6 +10,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QEvent
 
 class ByeBye(QDialog):
     lblimg_cancel_clicked = pyqtSignal()
+    lblimg_switchuser_clicked = pyqtSignal()
     lblimg_logout_clicked = pyqtSignal()
     lblimg_reboot_clicked = pyqtSignal()
     lblimg_shutdown_clicked = pyqtSignal()
@@ -27,6 +29,7 @@ class ByeBye(QDialog):
     def connect_connections(self):
         """Connect connections."""
         self.lblimg_cancel_clicked.connect(self.cancel_clicked)
+        self.lblimg_switchuser_clicked.connect(self.switchuser_clicked)
         self.lblimg_logout_clicked.connect(self.logout_clicked)
         self.lblimg_reboot_clicked.connect(self.reboot_clicked)
         self.lblimg_shutdown_clicked.connect(self.shutdown_clicked)
@@ -37,6 +40,7 @@ class ByeBye(QDialog):
     def install_event_filters(self):
         """Install my event filters."""
         self.ui.lblimg_cancel.installEventFilter(self)
+        self.ui.lblimg_switchuser.installEventFilter(self)
         self.ui.lblimg_logout.installEventFilter(self)
         self.ui.lblimg_reboot.installEventFilter(self)
         self.ui.lblimg_shutdown.installEventFilter(self)
@@ -52,7 +56,15 @@ class ByeBye(QDialog):
     @pyqtSlot()
     def logout_clicked(self):
         """Logout."""
-        print("Logout")
+        id = subprocess.check_output(["pgrep", "qtile"]).decode(
+            "utf-8").strip().splitlines()[0]
+        # os.system(f"kill -15 {id}")
+        print(f"kill -15 {id}")
+
+    @pyqtSlot()
+    def switchuser_clicked(self):
+        """Switch User."""
+        os.system("dm-tool switch-to-greeter")
 
     @pyqtSlot()
     def reboot_clicked(self):
@@ -62,7 +74,7 @@ class ByeBye(QDialog):
     @pyqtSlot()
     def shutdown_clicked(self):
         """Shutdown."""
-        os.system("systemctl shutdown")
+        os.system("systemctl poweroff")
 
     @pyqtSlot()
     def suspend_clicked(self):
@@ -77,8 +89,9 @@ class ByeBye(QDialog):
     @pyqtSlot()
     def lock_clicked(self):
         """Lock."""
-        # os.system("$HOME/.myScripts/system_exit/lock.sh")
-        os.system("slock")
+        os.system("$HOME/.myScripts/system_exit/lock.sh")
+        # os.system("i3lock")
+        # os.system("slock")
         self.close()
 
     def eventFilter(self, obj, e):
@@ -92,6 +105,11 @@ class ByeBye(QDialog):
             if e.type() == QEvent.MouseButtonPress:
                 if e.buttons() & Qt.LeftButton:
                     self.lblimg_cancel_clicked.emit()
+                    return True
+        elif obj == self.ui.lblimg_switchuser:
+            if e.type() == QEvent.MouseButtonPress:
+                if e.buttons() & Qt.LeftButton:
+                    self.lblimg_switchuser_clicked.emit()
                     return True
         elif obj == self.ui.lblimg_logout:
             if e.type() == QEvent.MouseButtonPress:

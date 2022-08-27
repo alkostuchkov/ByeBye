@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from fnmatch import translate
 import os
+import locale
 import subprocess
 import byebye_ui
-from PyQt5.QtWidgets import QApplication, QDialog
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QEvent
+from PyQt5.QtWidgets import QApplication, QDialog, QWidget
+from PyQt5.QtCore import (
+    pyqtSignal, pyqtSlot, Qt, QEvent,
+    QTranslator, QCoreApplication)
 
 
 class ByeBye(QDialog):
@@ -23,8 +27,35 @@ class ByeBye(QDialog):
         self.ui = byebye_ui.Ui_dlg_byebye()
         self.ui.setupUi(self)
 
+        self._translate = QCoreApplication.translate
+        self._byebye_translator = QTranslator()
+        self._qtbasetranslator = QTranslator()
+
+        self._locale = locale.getdefaultlocale()[0]
+        self.change_language()
+
         self.connect_connections()
         self.install_event_filters()
+
+    def change_language(self):
+        """Change language depends of system locale."""
+        if self._locale == "ru_RU":
+            self._byebye_translator.load(":/lang/Translations/qtbase_ru.qm")
+            self._byebye_translator.load(":/lang/Translations/byebye_ru.qm")
+            QApplication.installTranslator(self._byebye_translator)
+
+        else:
+            self._byebye_translator.load(":/lang/Translations/qtbase_en.qm")
+            self._byebye_translator.load(":/lang/Translations/byebye_en.qm")
+
+        QApplication.installTranslator(self._qtbasetranslator)
+
+    def changeEvent(self, e):
+        """Retranslate the app when called event LanguageChange."""
+        if e.type() == QEvent.LanguageChange:
+            self.ui.retranslateUi(self)
+        else:
+            QWidget.changeEvent(self, e)
 
     def connect_connections(self):
         """Connect connections."""

@@ -24,13 +24,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1100</width>
-    <height>176</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1100</width>
+    <width>2000</width>
     <height>176</height>
    </size>
   </property>
@@ -58,19 +58,6 @@
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/cancel.png</pixmap>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_cancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::AutoText</enum>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -93,16 +80,6 @@
        </property>
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/switchuser.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_switchuser">
-       <property name="text">
-        <string>Switch User</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::AutoText</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -127,13 +104,6 @@
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/logout.png</pixmap>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_logout">
-       <property name="text">
-        <string>Logout</string>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -156,13 +126,6 @@
        </property>
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/reboot.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_reboot">
-       <property name="text">
-        <string>Reboot</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -187,13 +150,6 @@
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/shutdown.png</pixmap>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_shutdown">
-       <property name="text">
-        <string>Shutdown</string>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -203,36 +159,6 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_5">
-     <item>
-      <widget class="QLabel" name="lblimg_suspend">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="toolTip">
-        <string>Suspend</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="res.qrc">:/icons/suspend.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_suspend">
-       <property name="text">
-        <string>Suspend</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
       <widget class="QLabel" name="lblimg_hibernate">
        <property name="cursor">
@@ -245,14 +171,30 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="res.qrc">:/icons/hibernate.png</pixmap>
+        <pixmap resource="res.qrc">:/icons/suspend.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
-      <widget class="QLabel" name="lbl_hibernate">
+      <widget class="QLabel" name="lblimg_suspend">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>Suspend</string>
+       </property>
        <property name="text">
-        <string>Hibernate</string>
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="res.qrc">:/icons/hibernate.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -276,13 +218,6 @@
        </property>
        <property name="pixmap">
         <pixmap resource="res.qrc">:/icons/lock.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lbl_lock">
-       <property name="text">
-        <string>Lock</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

@@ -111,11 +111,13 @@ class ByeBye(QDialog):
     def suspend_clicked(self):
         """Suspend."""
         os.system("systemctl suspend")
+        self.close()
 
     @pyqtSlot()
     def hibernate_clicked(self):
         """Hibernate."""
         os.system("systemctl hibernate")
+        self.close()
 
     @pyqtSlot()
     def lock_clicked(self):
